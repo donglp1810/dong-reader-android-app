@@ -1,0 +1,13 @@
+# Kotlin & Java code: luôn dùng LF
+*.kt text eol=lf
+*.java text eol=lf
+
+# XML & Gradle scripts
+*.xml text eol=lf
+*.gradle text eol=lf
+
+# Markdown, properties, config
+*.md text eol=lf
+*.properties text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
