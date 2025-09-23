@@ -21,15 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.dong.reader.components.ReaderLogo
+import com.dong.reader.navigation.ReaderScreens
 import kotlinx.coroutines.delay
 
-@Preview(showBackground = true)
 @Composable
-fun ReaderSplashScreen(navController: NavHostController = NavHostController(context = LocalContext.current)) {
+fun ReaderSplashScreen(navController: NavHostController) {
     val scale = remember {
         Animatable(0f)
     }
@@ -44,6 +43,7 @@ fun ReaderSplashScreen(navController: NavHostController = NavHostController(cont
                 })
         )
         delay(2000L)
+        navController.navigate(ReaderScreens.LoginScreen.name)
     }
 
     Surface(
@@ -60,11 +60,7 @@ fun ReaderSplashScreen(navController: NavHostController = NavHostController(cont
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "A Reader", style = MaterialTheme.typography.titleLarge,
-                color = Color.Red.copy(alpha = 0.5f)
-            )
-            Spacer(modifier = Modifier.height(15.dp))
+            ReaderLogo()
             Text(
                 text = "\"Read. Change. Yourself\"", style = MaterialTheme.typography.titleMedium,
                 color = Color.LightGray

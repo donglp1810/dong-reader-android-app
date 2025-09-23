@@ -1,6 +1,6 @@
 package com.dong.reader.navigation
 
-enum class ReaderScreen {
+enum class ReaderScreens {
     SplashScreen,
     LoginScreen,
     CreateAccountScreen,
@@ -11,7 +11,7 @@ enum class ReaderScreen {
     ReaderStatsScreen;
 
     companion object {
-        fun fromRoute(route: String?): ReaderScreen = when (route?.substringBefore("/")) {
+        fun fromRoute(route: String?): ReaderScreens = when (route?.substringBefore("/")) {
             SplashScreen.name -> SplashScreen
             LoginScreen.name -> LoginScreen
             CreateAccountScreen.name -> CreateAccountScreen

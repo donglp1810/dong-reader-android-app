@@ -6,15 +6,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.dong.reader.screens.ReaderSplashScreen
 import com.dong.reader.screens.home.Home
+import com.dong.reader.screens.login.ReaderLoginScreen
 
 @Composable
 fun ReaderNavigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = ReaderScreen.SplashScreen.name) {
-        composable(ReaderScreen.SplashScreen.name) {
+    NavHost(navController = navController, startDestination = ReaderScreens.SplashScreen.name) {
+        composable(ReaderScreens.SplashScreen.name) {
             ReaderSplashScreen(navController = navController)
         }
-        composable(ReaderScreen.ReaderHomeScreen.name) {
+        composable(ReaderScreens.LoginScreen.name) {
+            ReaderLoginScreen(navController = navController)
+        }
+        composable(ReaderScreens.ReaderHomeScreen.name) {
             Home(navController = navController)
         }
     }
