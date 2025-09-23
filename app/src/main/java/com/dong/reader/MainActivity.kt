@@ -13,7 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.dong.reader.ui.theme.DongReaderTheme
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,17 +24,6 @@ class MainActivity : ComponentActivity() {
             DongReaderTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val db = FirebaseFirestore.getInstance()
-                    val user: MutableMap<String, Any> = HashMap()
-                    user["firstName"] = "Dong"
-                    user["lastName"] = "Le"
-                    db.collection("users")
-                        .add(user)
-                        .addOnSuccessListener {
-                            Log.d("TAG", "DocumentSnapshot added with ID: " + it.id)
-                        }
-                        .addOnFailureListener {
-                            Log.w("TAG", "Error adding document", it)
-                        }
 
                     Surface(modifier = Modifier.padding(innerPadding)) {
                         Text(text = "Hello World")
