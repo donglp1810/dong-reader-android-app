@@ -34,14 +34,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.dong.reader.components.EmailInput
 import com.dong.reader.components.PasswordInput
 import com.dong.reader.components.ReaderLogo
 import com.dong.reader.R
+import com.dong.reader.navigation.ReaderScreens
 
 @Composable
-fun ReaderLoginScreen(navController: NavHostController) {
+fun ReaderLoginScreen(navController: NavHostController, viewModel: LoginScreenViewModel = hiltViewModel()) {
     val showLoginForm = rememberSaveable { mutableStateOf(true) }
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -50,10 +52,16 @@ fun ReaderLoginScreen(navController: NavHostController) {
         ) {
             ReaderLogo()
             if (showLoginForm.value)
-                UserForm(loading = false, isCreateAccount = false) { email, password ->
-                    Log.d("ReaderApp", "ReaderLoginScreen: $email, $password")
+                UserForm(loading = viewModel.loading.value!!, isCreateAccount = false) { email, password ->
+                    viewModel.signInUserWithEmailAndPassword(email, password) {
+                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+                    }
                 }
-            else UserForm(loading = false, isCreateAccount = true) { email, password -> }
+            else UserForm(loading = viewModel.loading.value!!, isCreateAccount = true) { email, password ->
+                viewModel.createUserWithEmailAndPassword(email, password) {
+                    navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+                }
+            }
             Spacer(modifier = Modifier.height(15.dp))
             Row(
                 modifier = Modifier.padding(15.dp),
