@@ -54,6 +54,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil3.compose.rememberAsyncImagePainter
 import com.dong.reader.model.MBook
@@ -212,8 +213,14 @@ fun BookRating(score: Double = 4.5) {
 @Composable
 fun ListCard(
     book: MBook = MBook(
-        "id01", "Book title", "Book author", "hello",
-        "https://books.google.com/books/content?id=eR4kCQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", listOf("book categories"), "10/10/2025", 1
+        id = "dadfa",
+        title = "Hello Again 1",
+        authors = "All of us",
+        notes = "",
+        photoUrl = "https://books.google.com/books/content?id=eR4kCQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+        categories = "",
+        publishedDate = "",
+        pageCount = ""
     ), onPressDetails: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -226,7 +233,7 @@ fun ListCard(
     Card(
         modifier = Modifier
             .clickable {
-                onPressDetails.invoke(book.title)
+                onPressDetails.invoke(book.title!!)
             }
             .padding(10.dp)
             .height(240.dp)
@@ -235,7 +242,8 @@ fun ListCard(
     ) {
         Column(
             modifier = Modifier
-                .width(screenWidth.dp - (spacing * 2)).fillMaxHeight(),
+                .width(screenWidth.dp - (spacing * 2))
+                .fillMaxHeight(),
             horizontalAlignment = Alignment.Start
         ) {
             Row(
@@ -266,7 +274,7 @@ fun ListCard(
             }
 
             Text(
-                text = book.title,
+                text = book.title!!,
                 modifier = Modifier.padding(4.dp),
                 style = TextStyle(
                     color = Color.Black,
@@ -279,7 +287,7 @@ fun ListCard(
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = book.authors,
+                text = book.authors!!,
                 modifier = Modifier.padding(4.dp),
                 style = TextStyle(
                     color = Color.Black,
@@ -311,10 +319,9 @@ fun ReaderAppBar(
     title: String,
     icon: ImageVector? = null,
     showProfile: Boolean = true,
-    navController: NavHostController,
-    onAddActionClicked: () -> Unit = {},
-    onButtonClicked: () -> Unit = {}
-) {
+    navController: NavController,
+    onBackArrowClicked: () -> Unit = {},
+    ) {
 
     TopAppBar(
         title = {
@@ -330,6 +337,18 @@ fun ReaderAppBar(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                 }
+                icon?.let {
+                    Icon(
+                        imageVector = it,
+                        contentDescription = "arrow back",
+                        tint = Color.Red.copy(alpha = 0.7f),
+                        modifier = Modifier.clickable {
+                            onBackArrowClicked.invoke()
+                        }
+                    )
+
+                }
+                Spacer(modifier = Modifier.width(40.dp))
                 Text(
                     text = title,
                     style = TextStyle(
@@ -350,11 +369,13 @@ fun ReaderAppBar(
                     }
                 }
             ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.Logout,
-                    contentDescription = "Logout",
-                    tint = Color.Cyan.copy(alpha = 0.4f)
-                )
+                if (showProfile) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.Logout,
+                        contentDescription = "Logout",
+                        tint = Color.Cyan.copy(alpha = 0.4f)
+                    )
+                }
             }
         },
         navigationIcon = {},

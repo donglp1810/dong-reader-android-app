@@ -48,7 +48,9 @@ fun Home(navController: NavHostController) {
             ReaderAppBar("A.Reader", navController = navController)
         },
         floatingActionButton = {
-            FABContent {}
+            FABContent {
+                navController.navigate(ReaderScreens.SearchScreen.name)
+            }
         }
     ) {
         Surface(
@@ -71,9 +73,9 @@ fun HomeContent(navController: NavHostController) {
             authors = "All of us",
             notes = "",
             photoUrl = "https://books.google.com/books/content?id=eR4kCQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-            categories = listOf(),
+            categories = "",
             publishedDate = "",
-            pageCount = 0
+            pageCount = ""
         ),
         MBook(
             id = "dadfa",
@@ -81,9 +83,9 @@ fun HomeContent(navController: NavHostController) {
             authors = "All of us",
             notes = "",
             photoUrl = "",
-            categories = listOf(),
+            categories = "",
             publishedDate = "",
-            pageCount = 0
+            pageCount = ""
         ),
         MBook(
             id = "dadfa",
@@ -91,9 +93,9 @@ fun HomeContent(navController: NavHostController) {
             authors = "All of us",
             notes = "",
             photoUrl = "",
-            categories = listOf(),
+            categories = "",
             publishedDate = "",
-            pageCount = 0
+            pageCount = ""
         ),
         MBook(
             id = "dadfa",
@@ -101,9 +103,9 @@ fun HomeContent(navController: NavHostController) {
             authors = "All of us",
             notes = "",
             photoUrl = "",
-            categories = listOf(),
+            categories = "",
             publishedDate = "",
-            pageCount = 0
+            pageCount = ""
         ),
         MBook(
             id = "dadfa",
@@ -111,9 +113,9 @@ fun HomeContent(navController: NavHostController) {
             authors = "All of us",
             notes = "",
             photoUrl = "",
-            categories = listOf(),
+            categories = "",
             publishedDate = "",
-            pageCount = 0
+            pageCount = ""
         ),
     )
 
